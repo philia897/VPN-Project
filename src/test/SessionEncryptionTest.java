@@ -1,26 +1,29 @@
-import java.nio.*;
+package test;
+// import java.nio.*;
 
 import java.util.*;
-import java.security.*;
+// import java.security.*;
 import javax.crypto.*;
-import javax.crypto.spec.*;
+// import javax.crypto.spec.*;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+// import static org.junit.Assert.assertEquals;
+// import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
+import security.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+// import java.io.IOException;
 
-import javax.crypto.*;
-import java.security.NoSuchAlgorithmException;
-import java.security.InvalidKeyException;
-import java.security.InvalidAlgorithmParameterException;
-import javax.crypto.NoSuchPaddingException;
+// import javax.crypto.*;
+// import java.security.NoSuchAlgorithmException;
+// import java.security.InvalidKeyException;
+// import java.security.InvalidAlgorithmParameterException;
+// import javax.crypto.NoSuchPaddingException;
 
 public class SessionEncryptionTest  {
     static String PLAINSTRING = "Time flies like an arrow. Fruit flies like a banana.";

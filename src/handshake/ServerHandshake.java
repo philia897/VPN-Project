@@ -1,8 +1,9 @@
+package handshake;
 /**
  * Server side of the handshake.
  */
 
-import java.net.InetAddress;
+// import java.net.InetAddress;
 import java.net.Socket;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -19,6 +20,8 @@ import java.util.Base64;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
+import security.*;
 
 import java.net.ServerSocket;
 import java.io.IOException;

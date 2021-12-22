@@ -1,4 +1,7 @@
+package test;
 import java.security.*;
+
+import security.HandshakeCrypto;
 
 public class HandshakeCryptoTester {
     static String PRIVATEKEYFILE = "Uprivatekey.der";

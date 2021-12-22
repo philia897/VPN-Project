@@ -1,3 +1,4 @@
+package handshake;
 /*
  * Handshake message encoding/decoding and transmission
  * for IK2206 project.
@@ -8,7 +9,7 @@ import java.io.IOException;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 
-import java.nio.ByteBuffer;
+// import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.net.InetAddress;
 import java.net.Socket;

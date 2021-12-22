@@ -1,3 +1,4 @@
+package security;
 import java.security.SecureRandom;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;

@@ -1,3 +1,4 @@
+package basictools;
 public class Logger {
     private static final boolean ENABLE_LOGGING = true;
     public static void log(String message) {

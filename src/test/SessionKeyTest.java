@@ -1,6 +1,9 @@
+package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import org.junit.Test;
+
+import security.SessionKey;
 
 // import java.util.Arrays;
 import javax.crypto.SecretKey;

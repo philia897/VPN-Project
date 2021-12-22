@@ -1,3 +1,4 @@
+package forward;
 /**
  * ForwardServerClientThread handles the clients of Nakov Forward Server. It
  * connects two sockets and starts the TCP forwarding between given client
@@ -14,20 +15,24 @@
  * Peter Sjodin, KTH
  */
 
-import java.net.InetAddress;
+// import java.net.InetAddress;
 import java.net.Socket;
 import java.net.ServerSocket;
-import java.net.SocketException;
+// import java.net.SocketException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
  
-import javax.crypto.CipherOutputStream;
-import javax.crypto.CipherInputStream;
+// import javax.crypto.CipherOutputStream;
+
+import basictools.Logger;
+import security.*;
+
+// import javax.crypto.CipherInputStream;
 
 public class ForwardServerClientThread extends Thread
 {
-    private ForwardClient mForwardClient = null;
+    // private ForwardClient mForwardClient = null;
     private Socket mClientSocket = null;
     private Socket mServerSocket = null;
     private ServerSocket mListenSocket = null;

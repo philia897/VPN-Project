@@ -14,10 +14,17 @@
  */
 
  
-import java.lang.AssertionError;
+// import java.lang.AssertionError;
 import java.lang.IllegalArgumentException;
 import java.lang.Integer;
-import java.util.ArrayList;
+// import java.util.ArrayList;
+
+import basictools.Arguments;
+import forward.ForwardServerClientThread;
+import handshake.ClientHandshake;
+import security.HandshakeCrypto;
+import security.VerifyCertificate;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
@@ -26,7 +33,7 @@ import java.security.PrivateKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.io.IOException;
-import java.io.FileInputStream;
+// import java.io.FileInputStream;
  
 public class ForwardClient
 {
@@ -37,8 +44,8 @@ public class ForwardClient
 
     public static ClientHandshake clientHandshake;
     private static Arguments arguments;
-    private static int sessionPort;
-    private static String sessionHost;
+    // private static int sessionPort;
+    // private static String sessionHost;
 
     /**
      * Do handshake negotiation with server to authenticate and

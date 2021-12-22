@@ -1,5 +1,9 @@
+package test;
 import java.io.*;
 import javax.crypto.*;
+
+import security.SessionDecrypter;
+import security.SessionEncrypter;
 
 public class TestSessionCrypto  {
     static String PLAININPUT = "plaininput";
