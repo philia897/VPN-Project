@@ -2,8 +2,8 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2021-12-22 23:13:44
- * @LastEditors  : Do not edit
+ * @LastEditTime : 2021-12-23 00:00:31
+ * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\handshake\ClientHandshake.java
  * @Description  : The client side of the handshake protocol. 
  *  
@@ -61,6 +61,12 @@ public class ClientHandshake {
         this.HandshakeSocket = handshakeSocket;
     }
 
+    /**
+     * @Description : Send Client Hello message
+     * @param        [X509Certificate] clientCert
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
     public void SendClientHello(X509Certificate clientCert) throws CertificateEncodingException, IOException{
         HandshakeMessage msg = new HandshakeMessage();
         msg.putParameter("MessageType", "ClientHello");
@@ -69,6 +75,13 @@ public class ClientHandshake {
         System.out.println("INFO: ClientHello Message Sent!");
     }
 
+    /**
+     * @Description : Receive Server Hello message and process it
+     * @param        [X509Certificate] caCert
+     * @param        [CertificateFactory] cf
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
     public void RecvServerHello(X509Certificate caCert, CertificateFactory cf) throws 
     IOException, CertificateException, InvalidKeyException, NoSuchAlgorithmException, NoSuchProviderException, SignatureException{
 
@@ -83,6 +96,13 @@ public class ClientHandshake {
         System.out.println("INFO: ServerHello Message received and checked!");
     }
 
+    /**
+     * @Description : Send Forward Message 
+     * @param        [String] TargetHost
+     * @param        [String] TargetPort
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
     public void SendForward(String TargetHost, String TargetPort) throws IOException{
         HandshakeMessage msg = new HandshakeMessage();
         msg.putParameter("MessageType", "Forward");
@@ -92,6 +112,13 @@ public class ClientHandshake {
         System.out.println("INFO: Forward Message Sent!");
     }
 
+    /**
+     * @Description : Receive Session message and process it. 
+     * Initialize the SessionEncrypter and Decrypter based on it.
+     * @param        [PrivateKey] ClientPrivKey
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
     public void RecvSession(PrivateKey ClientPrivKey) throws 
     IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, 
     NoSuchAlgorithmException, NoSuchPaddingException, InvalidAlgorithmParameterException{

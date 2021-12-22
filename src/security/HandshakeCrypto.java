@@ -2,8 +2,8 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-07 16:30:56
- * @LastEditTime : 2021-12-22 23:14:47
- * @LastEditors  : Do not edit
+ * @LastEditTime : 2021-12-22 23:53:20
+ * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\security\HandshakeCrypto.java
  * @Description  : A class that provides static methods for encrypting/decrypting, extracting key from keyfile
  *  
@@ -34,6 +34,13 @@ import javax.crypto.NoSuchPaddingException;
 
 public class HandshakeCrypto {
 
+    /**
+     * @description : encrypt the plaintext using the given key
+     * @param        [byte[]] plaintext
+     * @param        [Key] key
+     * @return       [byte[]] ciphertext
+     * @author      : Zekun WANG
+     */
     public static byte[] encrypt(byte[] plaintext, Key key) 
             throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, 
             NoSuchAlgorithmException, NoSuchPaddingException{
@@ -44,6 +51,13 @@ public class HandshakeCrypto {
         return c.doFinal(plaintext);
     }
 
+    /**
+     * @description : decrypt the ciphertext using the given key
+     * @param        [byte[]] ciphertext
+     * @param        [Key] key
+     * @return       [byte[]] plaintext
+     * @author      : Zekun WANG
+     */
     public static byte[] decrypt(byte[] ciphertext, Key key)
             throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, 
             NoSuchAlgorithmException, NoSuchPaddingException{
@@ -54,6 +68,12 @@ public class HandshakeCrypto {
         return c.doFinal(ciphertext);
     }
 
+    /**
+     * @description : Get public key from certificate file
+     * @param        [String] certfile
+     * @return       [PublicKey] public key
+     * @author      : Zekun WANG
+     */
     public static PublicKey getPublicKeyFromCertFile(String certfile) 
             throws FileNotFoundException, CertificateException{
 
@@ -64,6 +84,12 @@ public class HandshakeCrypto {
         return c.getPublicKey();
     }
 
+    /**
+     * @Description : Get private key from a key file
+     * @param        [String] keyfile
+     * @return       [PrivateKey] private key
+     * @author      : Zekun WANG
+     */
     public static PrivateKey getPrivateKeyFromKeyFile(String keyfile) 
             throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
                 

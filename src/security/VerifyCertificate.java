@@ -2,8 +2,8 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-07 15:21:06
- * @LastEditTime : 2021-12-22 23:15:51
- * @LastEditors  : Do not edit
+ * @LastEditTime : 2021-12-23 00:04:35
+ * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\security\VerifyCertificate.java
  * @Description  : A class that provides static methods about extracting, coding, and verifying certificate.
  *  
@@ -55,6 +55,13 @@ public class VerifyCertificate {
         }
     }
 
+    /**
+     * @Description : Get certificate from a file
+     * @param        [String] file_path
+     * @param        [CertificateFactory] cf
+     * @return       [X509Certificate] certificate
+     * @author      : Zekun WANG
+     */
     public static X509Certificate GetCertificate(String file_path, CertificateFactory cf) 
             throws CertificateException, FileNotFoundException{
         FileInputStream f = new FileInputStream(file_path);
@@ -72,10 +79,23 @@ public class VerifyCertificate {
         c.verify(public_key);
     }
 
+    /**
+     * @Description : Encode the certificate to String
+     * @param        [X509Certificate] c
+     * @return       [String] encoded string
+     * @author      : Zekun WANG
+     */
     public static String Encode(X509Certificate c) throws CertificateEncodingException{
         return Base64.getEncoder().encodeToString(c.getEncoded());
     }
 
+    /**
+     * @Description : Decode the certificate from String
+     * @param        [String] cString
+     * @param        [CertificateFactory] cf
+     * @return       [X509Certificate] decoded certificate
+     * @author      : Zekun WANG
+     */
     public static X509Certificate Decode(String cString, CertificateFactory cf) throws CertificateException{
         return (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(Base64.getDecoder().decode(cString)));
     }

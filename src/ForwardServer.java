@@ -2,7 +2,7 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2021-12-22 23:08:52
+ * @LastEditTime : 2021-12-22 23:44:16
  * @LastEditors  : Do not edit
  * @FilePath     : \VPN_Project\src\ForwardServer.java
  * @Description  : ForwardServer with simple security protection
@@ -64,6 +64,12 @@ public class ForwardServer
     /**
      * Do handshake negotiation with client to authenticate and learn 
      * target host/port, etc.
+     */
+    /**
+     * @description : above
+     * @param        [Socket] handshakeSocket
+     * @return       [boolean] if do handshake successfully
+     * @author      : Zekun WANG
      */
     private boolean doHandshake(Socket handshakeSocket) throws UnknownHostException, IOException, Exception {
         System.out.println("Do handshake start...");

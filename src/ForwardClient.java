@@ -1,7 +1,7 @@
 /*
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2021-12-22 23:08:36
+ * @LastEditTime : 2021-12-22 23:43:25
  * @LastEditors  : Do not edit
  * @FilePath     : \VPN_Project\src\ForwardClient.java
  * @Description  : ForwardClient with simple security protection
@@ -61,6 +61,12 @@ public class ForwardClient {
      * learn parameters: session port, host, key, and IV
      */
 
+    /**
+     * @description : Above
+     * @param        [Socket] handshakeSocket
+     * @return       [boolean] if do handshake succeeds
+     * @author      : Zekun WANG
+     */
     private static boolean doHandshake(Socket handshakeSocket) throws IOException {
         System.out.println("Do handshake start...");
 
