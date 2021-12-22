@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-18 16:56:36
+ * @LastEditTime : 2021-12-22 23:16:20
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\test\ClientSimulate.java
+ * @Description  : Simulate the client to test the vpn system's functionality.
+ *  
+ */
 package test;
 import java.io.IOException;
 import java.io.InputStream;

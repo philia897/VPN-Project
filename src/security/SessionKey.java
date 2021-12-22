@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-11-19 20:58:10
+ * @LastEditTime : 2021-12-22 23:15:36
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\security\SessionKey.java
+ * @Description  : A class that contains information of session key, providing methods for outputing key and iv in byte format.
+ *  
+ */
 package security;
 import java.security.SecureRandom;
 import javax.crypto.KeyGenerator;

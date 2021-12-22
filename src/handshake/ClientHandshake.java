@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-15 17:42:46
+ * @LastEditTime : 2021-12-22 23:13:44
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\handshake\ClientHandshake.java
+ * @Description  : The client side of the handshake protocol. 
+ *  
+ */
 package handshake;
 /**
  * Client side of the handshake.

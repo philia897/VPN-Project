@@ -1,6 +1,8 @@
 # VPN-Project
 
-A VPN Project Course Design of KTH course Internet Security and Privacy. The VPN ForwardClient and ForwardServer are the two main applications that make up the VPN.
+A VPN Project Course Design of KTH course Internet Security and Privacy. The VPN ForwardClient and ForwardServer are the two main applications that make up the VPN. 
+
+I opensource my code for practicing using of git and VScode, not for giving any chance of plagiarism. Please don't copy my work directly for the course.
 
 ## Skeleton
 
@@ -13,7 +15,7 @@ The following files are included:
     - **Logger.java** Logging  (prints messages to the terminal)
   - **handshake** Two file about handshake process
     - **HandshakeMessage.java** A class for encoding, decoding and transmitting key-value messages 
-    - **ClientHandshake.java** The client side of the handshake protocol. Currently mostly an empty class – it consists of declaration of fixed data, as a static substitute for the handshake protocol. 
+    - **ClientHandshake.java** The client side of the handshake protocol. 
     - **ServerHandshake.java** Likewise for the server side of the handshake protocol.
   - **security** Classes for security
     - **HandshakeCrypto.java** A class that provides static methods for encrypting/decrypting, extracting key from keyfile

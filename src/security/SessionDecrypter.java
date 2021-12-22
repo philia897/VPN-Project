@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-02 15:25:05
+ * @LastEditTime : 2021-12-22 23:14:58
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\security\SessionDecrypter.java
+ * @Description  : A class that provides decryption service in session communication
+ *  
+ */
 package security;
 import java.io.InputStream;
 import java.security.InvalidAlgorithmParameterException;

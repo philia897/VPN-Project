@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-15 17:42:46
+ * @LastEditTime : 2021-12-22 23:14:19
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\handshake\ServerHandshake.java
+ * @Description  : The server side of the handshake protocol. 
+ *  
+ */
 package handshake;
 /**
  * Server side of the handshake.

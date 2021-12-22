@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-07 16:30:56
+ * @LastEditTime : 2021-12-22 23:14:47
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\security\HandshakeCrypto.java
+ * @Description  : A class that provides static methods for encrypting/decrypting, extracting key from keyfile
+ *  
+ */
 package security;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

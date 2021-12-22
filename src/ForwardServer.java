@@ -1,3 +1,15 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-15 17:42:46
+ * @LastEditTime : 2021-12-22 23:08:52
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\ForwardServer.java
+ * @Description  : ForwardServer with simple security protection
+ *                 Based on Port forwarding server, see info below.
+ *  
+ */
+
 /**
  * Port forwarding server. Forward data
  * between two TCP ports. Based on Nakov TCP Socket Forward Server 
@@ -36,6 +48,7 @@ import handshake.ServerHandshake;
 import security.HandshakeCrypto;
 import security.VerifyCertificate;
  
+
 public class ForwardServer
 {
     private static final boolean ENABLE_LOGGING = true;

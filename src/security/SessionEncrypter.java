@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-02 15:24:41
+ * @LastEditTime : 2021-12-22 23:15:18
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\security\SessionEncrypter.java
+ * @Description  : A class that provides encryption service in session communication
+ *  
+ */
 package security;
 import java.io.OutputStream;
 import java.security.InvalidAlgorithmParameterException;

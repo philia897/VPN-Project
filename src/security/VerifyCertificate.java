@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-07 15:21:06
+ * @LastEditTime : 2021-12-22 23:15:51
+ * @LastEditors  : Do not edit
+ * @FilePath     : \VPN_Project\src\security\VerifyCertificate.java
+ * @Description  : A class that provides static methods about extracting, coding, and verifying certificate.
+ *  
+ */
 package security;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;

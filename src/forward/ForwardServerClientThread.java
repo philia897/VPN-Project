@@ -1,3 +1,14 @@
+/*
+ *  
+ * @Author       : Don't known
+ * @CreateTime   : 2021-12-15 17:42:46
+ * @LastEditTime : 2021-12-22 23:24:29
+ * @LastEditors  : Zekun WANG(wangzekun.felix@gmail.com)
+ * @FilePath     : \VPN_Project\src\forward\ForwardServerClientThread.java
+ * @Description  : A class that sets up two-way forwarding between two socket, using the ForwardThread class
+ *                 Based on the IK2206 project, see info below.
+ *  
+ */
 package forward;
 /**
  * ForwardServerClientThread handles the clients of Nakov Forward Server. It
