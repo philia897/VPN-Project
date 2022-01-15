@@ -1,8 +1,8 @@
 /*
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2021-12-22 23:43:25
- * @LastEditors  : Do not edit
+ * @LastEditTime : 2022-01-15 00:51:02
+ * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\ForwardClient.java
  * @Description  : ForwardClient with simple security protection
  *                 Based on Port forwarding client KTH project, see info below.
@@ -98,6 +98,8 @@ public class ForwardClient {
                 e.printStackTrace();
                 return false;
             }
+            clientHandshake.SendFinished(clientPrivKey);
+            clientHandshake.RecvFinished();
             System.out.println("Handshake succeed!");
             return true;
         } catch (Exception e) {

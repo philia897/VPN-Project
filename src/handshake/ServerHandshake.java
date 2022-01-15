@@ -2,7 +2,7 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2021-12-22 23:57:44
+ * @LastEditTime : 2022-01-15 01:11:10
  * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\handshake\ServerHandshake.java
  * @Description  : The server side of the handshake protocol. 
@@ -15,22 +15,27 @@ package handshake;
 
 // import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SignatureException;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import basictools.tools;
 import security.*;
 
 import java.net.ServerSocket;
@@ -64,16 +69,23 @@ public class ServerHandshake {
     public SessionEncrypter sessionEncrypter;
     public SessionDecrypter sessionDecrypter;
 
+    /* Finished Message parameters should go here */
+    private MessageDigest md_sent;
+    private MessageDigest md_received;
+
     /**
      * Run server handshake protocol on a handshake socket. 
      * Here, we simulate the handshake by just creating a new socket
      * with a preassigned port number for the session.
+     * @throws NoSuchAlgorithmException
      */ 
-    public ServerHandshake(Socket handshakeSocket) throws IOException {
+    public ServerHandshake(Socket handshakeSocket) throws IOException, NoSuchAlgorithmException {
         // sessionSocket = new ServerSocket(12345);
         // sessionHost = sessionSocket.getInetAddress().getHostName();
         // sessionPort = sessionSocket.getLocalPort();
         this.HandshakeSocket = handshakeSocket;
+        this.md_sent = MessageDigest.getInstance("SHA-256");
+        this.md_received = MessageDigest.getInstance("SHA-256");
     }
 
     /**
@@ -96,6 +108,7 @@ public class ServerHandshake {
         VerifyCertificate.Verify(clientCert, caCert.getPublicKey());
         clientPubKey = clientCert.getPublicKey();
         System.out.println("INFO: ClientHello Message received and checked!");
+        msg.updateDigest(this.md_received);
     }
 
     /**
@@ -110,6 +123,7 @@ public class ServerHandshake {
         msg.putParameter("Certificate", VerifyCertificate.Encode(serverCert));
         msg.send(this.HandshakeSocket);
         System.out.println("INFO: ServerHello Message Sent!");
+        msg.updateDigest(this.md_sent);
     }
 
     /**
@@ -128,6 +142,7 @@ public class ServerHandshake {
         this.targetHost = msg.getParameter("TargetHost");
         this.targetPort = Integer.parseInt(msg.getParameter("TargetPort"));
         System.out.println("INFO: Forward Message received and processed!");
+        msg.updateDigest(this.md_received);
     }
 
     /**
@@ -147,14 +162,7 @@ public class ServerHandshake {
         String key = Base64.getEncoder().encodeToString(HandshakeCrypto.encrypt(sessionEncrypter.getKeyBytes(), clientPubKey));
         String iv = Base64.getEncoder().encodeToString(HandshakeCrypto.encrypt(sessionEncrypter.getIVBytes(), clientPubKey));
 
-        try {
-            sessionSocket = new ServerSocket(0);
-            sessionHost = sessionSocket.getInetAddress().getHostName();
-            sessionPort = sessionSocket.getLocalPort();
-        } catch (Exception e) {
-            System.out.println("ERROR: SessionSocket setup failed!");
-            e.printStackTrace();
-        }
+        SessionSetup();
 
         HandshakeMessage msg = new HandshakeMessage();
         msg.putParameter("MessageType", "Session");
@@ -164,7 +172,79 @@ public class ServerHandshake {
         msg.putParameter("SessionPort", Integer.toString(sessionPort));
         msg.send(this.HandshakeSocket);
         System.out.println("INFO: Session Message Sent!");
+        msg.updateDigest(this.md_sent);
+    }
+
+    /**
+     * @Description : verifies the ClientFinish message by comparing the received hash 
+     * with the hash of the messages ForwardServer has received. It also decrypts the timestamp 
+     * with the public key of the ForwardClient, and checks that the timesstamp is the current time 
+     * @param        [unknown]
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
+    public void RecvFinished() throws 
+    IOException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, 
+    NoSuchAlgorithmException, NoSuchPaddingException {
+        
+        HandshakeMessage msg = new HandshakeMessage();
+        msg.recv(this.HandshakeSocket);
+        if(!msg.getParameter("MessageType").equals("ClientFinished")){
+            System.out.println("ERROR: RecvFinished error: MessageType wrong\t Received: "+msg.getParameter("MessageType"));
+            throw new IOException();
+        }
+        byte[] dgst = HandshakeCrypto.decrypt(tools.Decode2Bytes(msg.getParameter("Signature")), clientPubKey);
+        if(!Arrays.equals(dgst, this.md_received.digest())){
+            System.out.println("ERROR: RecvFinished error: Signature is not the same!");
+            throw new IOException();
+        }
+        String t = new String(
+            HandshakeCrypto.decrypt(tools.Decode2Bytes(msg.getParameter("TimeStamp")), clientPubKey),
+            "UTF-8");
+        if(!tools.CompareTime(tools.GetCurrentTime(), t)){
+            System.out.println("ERROR: RecvFinished error: TimeStamp received is \""+t+"\", but hope \""+tools.GetCurrentTime()+"\"!");
+            throw new IOException();
+        }
+        System.out.println("INFO: ClientFinished Message received and processed!");
 
     }
 
+    /**
+     * @Description : send a ServerFinish message with the hash of the ServerHello and Session messages, 
+     * and the encrypted current timestamp at the ForwardServer.
+     * @param        [PrivateKey] ServerPrivKey
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
+    public void SendFinished(PrivateKey ServerPrivKey) throws 
+    InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, 
+    NoSuchPaddingException, IOException {
+
+        HandshakeMessage msg = new HandshakeMessage();
+        msg.putParameter("MessageType", "ServerFinished");
+        msg.putParameter("Signature", tools.Encode2String(HandshakeCrypto.encrypt(this.md_sent.digest(), ServerPrivKey)));
+        msg.putParameter("TimeStamp", tools.Encode2String(
+            HandshakeCrypto.encrypt(tools.GetCurrentTime().getBytes(StandardCharsets.UTF_8), ServerPrivKey)));
+        msg.send(this.HandshakeSocket);
+        System.out.println("INFO: ClientFinished Message Sent!");
+    }
+
+    /**
+     * @Description : Set up the Session used for later communication
+     * @param        [unknown]
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     */
+    private void SessionSetup() throws IOException {
+        try {
+            sessionSocket = new ServerSocket(0);
+            sessionHost = sessionSocket.getInetAddress().getHostName();
+            sessionPort = sessionSocket.getLocalPort();
+        } catch (Exception e) {
+            System.out.println("ERROR: SessionSocket setup failed!");
+            e.printStackTrace();
+            throw new IOException();
+        }
+        System.out.println("INFO: Session Server Socket set up!");
+    }
 }

@@ -2,8 +2,8 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2021-12-22 23:44:16
- * @LastEditors  : Do not edit
+ * @LastEditTime : 2022-01-15 01:02:18
+ * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\ForwardServer.java
  * @Description  : ForwardServer with simple security protection
  *                 Based on Port forwarding server, see info below.
@@ -79,7 +79,7 @@ public class ForwardServer
             VerifyCertificate.Verify(caCert, caCert.getPublicKey());
             X509Certificate serverCert = VerifyCertificate.GetCertificate(arguments.get("usercert"), cf);
             VerifyCertificate.Verify(serverCert, caCert.getPublicKey());
-            PrivateKey clientPrivKey = HandshakeCrypto.getPrivateKeyFromKeyFile(arguments.get("key")); // this privkey is not used, one weakness
+            PrivateKey serverPrivKey = HandshakeCrypto.getPrivateKeyFromKeyFile(arguments.get("key")); 
             
             serverHandshake = new ServerHandshake(handshakeSocket);
             try {
@@ -92,6 +92,14 @@ public class ForwardServer
             serverHandshake.SendServerHello(serverCert);
             serverHandshake.RecvForward();
             serverHandshake.SendSession(KEYLENGTH);
+            try {
+                serverHandshake.RecvFinished();
+            } catch (Exception e) {
+                System.out.println("ERROR: RecvFinished error!");
+                e.printStackTrace();
+                return false;
+            }
+            serverHandshake.SendFinished(serverPrivKey);
             System.out.println("Handshake succeed!");
             return true;
         } catch (Exception e) {

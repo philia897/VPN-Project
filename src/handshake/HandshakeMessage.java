@@ -1,3 +1,13 @@
+/*
+ *  
+ * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
+ * @CreateTime   : 2021-12-15 17:42:46
+ * @LastEditTime : 2022-01-14 19:28:29
+ * @LastEditors  : Zekun WANG
+ * @FilePath     : \VPN_Project\src\handshake\HandshakeMessage.java
+ * @Description  : Handshake for IK2206
+ *  
+ */
 package handshake;
 /*
  * Handshake message encoding/decoding and transmission
@@ -11,6 +21,7 @@ import java.io.ByteArrayInputStream;
 
 // import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Properties;
@@ -82,6 +93,22 @@ public class HandshakeMessage extends Properties {
         }
         // load the content to properties from XML format
         this.loadFromXML(new ByteArrayInputStream(data));
+    }
+
+    /**
+     * @Description :  updates the digest using the byte array corresponding to the byte-encoded 
+     *                XML representation of the HandshakeMessage.
+     * @param        [MessageDigest] digest
+     * @return       [unknown]
+     * @author      : Zekun WANG
+     * @throws IOException
+     */    
+    public void updateDigest(MessageDigest digest) throws IOException {
+        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+        // store the properties to XML format
+        this.storeToXML(byteOutputStream, null);
+        byte[] bytes = byteOutputStream.toByteArray();
+        digest.update(bytes);
     }
 
 };
