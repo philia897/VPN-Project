@@ -2,7 +2,7 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2022-01-14 22:04:44
- * @LastEditTime : 2022-01-15 00:02:24
+ * @LastEditTime : 2022-01-17 09:56:57
  * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\basictools\tools.java
  * @Description  : Some tools for developing and make the code more realizable
@@ -24,7 +24,7 @@ public class tools {
     }
 
     public static String GetCurrentTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         return formatter.format(date);
     }
