@@ -2,7 +2,7 @@
  *  
  * @Author       : Zekun WANG(wangzekun.felix@gmail.com)
  * @CreateTime   : 2021-12-15 17:42:46
- * @LastEditTime : 2022-01-15 01:11:10
+ * @LastEditTime : 2022-01-20 12:08:04
  * @LastEditors  : Zekun WANG
  * @FilePath     : \VPN_Project\src\handshake\ServerHandshake.java
  * @Description  : The server side of the handshake protocol. 
@@ -226,7 +226,7 @@ public class ServerHandshake {
         msg.putParameter("TimeStamp", tools.Encode2String(
             HandshakeCrypto.encrypt(tools.GetCurrentTime().getBytes(StandardCharsets.UTF_8), ServerPrivKey)));
         msg.send(this.HandshakeSocket);
-        System.out.println("INFO: ClientFinished Message Sent!");
+        System.out.println("INFO: ServerFinished Message Sent!");
     }
 
     /**
